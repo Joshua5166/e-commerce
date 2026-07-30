@@ -1,0 +1,24 @@
+html{
+	scroll-behavior: smooth;
+}
+h3{
+	text-align: center;
+	font-size: 3em;
+}
+label{
+	font-size: 20px;
+}
+.btn { border: none; background-color: black; padding: 14px 28px; font-size: 16px; cursor: pointer; display: inline-block;
+}
+.btn:hover {background: #7105DC;
+}
+.sucess:hover {background-color: #04AA6Dcolor: white}
+.success {color: white;
+}
+button{
+	margin-left: 840px;
+}
+.div{
+	margin-left: 150px ;
+	margin-right: 150px;
+}
