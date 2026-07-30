@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+	<h1>¡Paso final!</h1>
+	<p class="lead"> Estas a punto de pagar la cantidad de:
+		<h4> Variable con el total: ejemplo 300$ </h4>
+		<div id="paypal-button-container"></div>
+	</p>
+    <!-- Remplazar "test" con tu propio ID de cliente de la aplicación de cuenta sandbox  -->
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=MXN"></script>
+    <!-- Configure un elemento contenedor para el botón -->
+    <div id="paypal-button-container"></div>
+    <script>
+      paypal.Buttons({
+        // Configura la transacción cuando se hace clic en un botón de pago
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: '77.44' // También puede hacer referencia a una variable o función TOTAL
+              }
+            }]
+          });
+        },
+        // Finalizar la transacción después de la aprobación del pagador
+        onApprove: (data, actions) => {
+          return actions.order.capture().then(function(orderData) {
+            // ¡Captura exitosa! Para propósitos de desarrollo/demostración:
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+            const transaction = orderData.purchase_units[0].payments.captures[0];
+            alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+            // Cuando esté listo para comenzar, elimine la alerta y muestre un mensaje de éxito dentro de esta página. Por ejemplo:
+            // const element = document.getElementById('paypal-button-container');
+            // element.innerHTML = '<h3>¡Gracias por su pago!</h3>';
+            // O vaya a otra URL: actions.redirect('thank_you.html');
+          });
+        }
+      }).render('#paypal-button-container');
+    </script>
+  </body>
+</html>
